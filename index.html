@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Video Player</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <style>
+      body {
+          background: #222;
+          text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <video id="video" controls loop autoplay crossorigin="anonymous"/>
+    <script>
+      function param(key) {
+          let parts = location.search.substr(1).split(/&/);
+          for (let i = 0; i < parts.length; i++) {
+              let [k, v] = parts[i].split(/=/);
+              if (k === key)
+                  return decodeURIComponent(v);
+          }
+          return null;
+      }
+
+      let file = param('v');
+      let base = 'http://skeeto.s3.amazonaws.com/share/';
+      let video = document.getElementById('video');
+      video.setAttribute('src', base + file + '.mp4');
+      document.title += ' [' + file + ']';
+    </script>
+  </body>
+</html>
